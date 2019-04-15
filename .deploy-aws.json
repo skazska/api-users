@@ -1,0 +1,82 @@
+{
+  "role": {
+    "api-users": {
+      "inlinePolicy": [
+        {
+          "PolicyName": "api-users-inline",
+          "PolicyDocument": {
+            "Version": "2012-10-17",
+            "Statement": [
+              {
+                "Effect": "Allow",
+                "Action": [
+                  "dynamodb:BatchGetItem",
+                  "dynamodb:BatchWriteItem",
+                  "dynamodb:PutItem",
+                  "dynamodb:DeleteItem",
+                  "dynamodb:GetItem",
+                  "dynamodb:UpdateItem"
+                ],
+                "Resource": "arn:aws:dynamodb:eu-west-1:266895356213:table/api-users"
+              }
+            ]
+          }
+        }
+      ],
+      "policies": [
+        "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      ],
+      "awsProperties": {
+        "Path": "/service-role/timetables/",
+        "RoleName": "api-users"
+      }
+    }
+  },
+  "lambda": {
+    "api-users": {
+      "codeEntries": [
+        "aws",
+        "methods",
+        "schemas",
+        "services",
+        "node_modules",
+        "aws.js",
+        "index.js"
+      ],
+      "awsProperties": {
+        "Handler": "aws.handler",
+        "Timeout": 10,
+        "Role": {
+          "aws-deploy": "role.timetables-api-clients/Arn"
+        }
+      }
+    }
+  },
+  "restApi": {
+    "api-users": {
+      "awsProperties": {
+        "description": "users api"
+      },
+      "resources": {
+        "users": {
+          "ANY": {
+            "awsProperties": {
+            },
+            "integration": {
+              "type": "AWS_PROXY",
+              "lambda": {
+                "aws-deploy": "lambda.api-users"
+              },
+              "awsProperties": {
+              },
+              "responses": {
+                "200": {
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
