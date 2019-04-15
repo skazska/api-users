@@ -1,5 +1,5 @@
 module.exports = {
-    clientList () {
+    list () {
         return Promise.resolve('Congrads!');
     }
 };

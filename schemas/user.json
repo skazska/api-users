@@ -7,16 +7,30 @@
       "type": "string",
       "pattern": "^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$"
     },
+    "name": {
+      "type": "string",
+      "maxLength": 30,
+      "minLength": 3,
+      "pattern": "^[:word:]+$"
+    },
     "login": {
-      "type": "string"
+      "type": "string",
+      "maxLength": 30,
+      "minLength": 3,
+      "pattern": "^[a-zA-Z0-9_]+$"
     },
     "regDate": {
       "type": "string",
       "format": "date-time"
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "facebookId": {
+      "type": "string"
     }
   },
-  "required": [
-    "id",
-    "login"
-  ]
+  "required": [],
+  "additionalProperties": false
 }

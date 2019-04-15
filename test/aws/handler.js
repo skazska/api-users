@@ -17,14 +17,14 @@ describe('handler', () => {
     const eventContext = new EventPayload(null, 'context');
 
     it('should call list method for GET request if no id path param provided', (done) => {
-        methodsStub.clientList.returns([{}, {}]);
+        methodsStub.list.returns([{}, {}]);
         handler.call({}, eventInput.get({}), eventContext.get({}), (err, result) => {
             expect(result.statusCode).eql('200');
             expect(result.headers).eql({
                 "Content-Type": "application/json"
             });
             expect(result.body).eql('[{},{}]');
-            expect(methodsStub.clientList).to.be.calledOnce();
+            expect(methodsStub.list).to.be.calledOnce;
             done();
         });
     })

@@ -3,19 +3,21 @@ module.exports.apiGwProxy = function (methods) {
         //console.log('Received event:', JSON.stringify(event, null, 2));
 
         const done = (err, res) => callback(null, {
-            statusCode: err ? '400' : '200',
+            statusCode: err ? (err.code || '500') : '200',
             body: err ? err.message : JSON.stringify(res),
             headers: {
                 'Content-Type': 'application/json',
             },
         });
 
+        let result = null;
+
         try {
-            let result = await methods.clientList();
-            done(null, result);
+            result = await methods.list();
         } catch (e) {
-            done(e);
+            return done(e);
         }
 
+        done(null, result);
     };
 };
