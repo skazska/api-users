@@ -11,7 +11,8 @@
       "type": "string",
       "maxLength": 30,
       "minLength": 3,
-      "pattern": "^[:word:]+$"
+      "pattern": "^[:word:]+$",
+      "description": "display name"
     },
     "login": {
       "type": "string",
@@ -19,9 +20,18 @@
       "minLength": 3,
       "pattern": "^[a-zA-Z0-9_]+$"
     },
+    "password": {
+      "type": "string",
+      "description": "password hash"
+    },
+    "passwordHashType": {
+      "type": "string",
+      "description": "password hash type i.e. local password security implementation version"
+    },
     "regDate": {
       "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "description": "registration date"
     },
     "email": {
       "type": "string",

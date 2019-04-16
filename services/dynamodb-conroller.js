@@ -1,6 +1,6 @@
 const AWSGlobal = require('aws-sdk/global');
 const Dynamo = require('aws-sdk/clients/dynamodb');
-
+const StorageController = require('./storage-controller');
 const awsDefaultConfig = {
     "accessKeyId": "ACCESS_KEY_ID",
     "secretAccessKey": "SECRET_ACCESS_KEY",
@@ -9,8 +9,9 @@ const awsDefaultConfig = {
 
 const dynamodb = new Dynamo();
 
-class DynamoDBController {
+class DynamoDBController extends StorageController {
     constructor (config, region, accountId) {
+        super();
         if (typeof config === 'string') {
             AWSGlobal.config.loadFromPath(config);
         } else if (typeof config === 'object') {
@@ -25,23 +26,23 @@ class DynamoDBController {
 
     }
 
-    read (id) {
+    static read (id) {
 
     }
 
-    readByEmail (email) {
+    static readByEmail (email) {
 
     }
 
-    readByLogin (login) {
+    static readByLogin (login) {
 
     }
 
-    readByFacebookId (facebookId) {
+    static readByFacebookId (facebookId) {
 
     }
 
-    list () {
+    static list () {
 
     }
 }

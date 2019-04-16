@@ -1,13 +1,14 @@
 const Validator = require('jsonschema').Validator;
 const validator = new Validator();
 
+
 /**
  * checks schema and throws error
  * @param data
  * @param schema
  * @param errorMessage
  */
-function validate (data, schema, errorMessage) {
+function schema (data, schema, errorMessage) {
     if (!validator.validate(data, schema)) throw error('400', errorMessage);
 }
 
@@ -24,6 +25,6 @@ function error (status, message) {
 }
 
 module.exports = {
-    validate: validate,
+    schema: schema,
     error: error
 };
