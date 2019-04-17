@@ -1,5 +1,6 @@
-const storage = require('./dynamodb-conroller');
 const crypto = require('crypto');
+const storage = require('./dynamodb-conroller');
+const {error} = require('./validations');
 
 const hashPasswordFunctions = {
     /**
@@ -15,6 +16,8 @@ const hashPasswordFunctions = {
         return Promise.resolve(hash.digest());
     }
 };
+
+const CURRENT_HASH_TYPE_VER = '1';
 
 /**
  *
@@ -79,6 +82,22 @@ class User {
         if (!currentPassword) currentPassword = '';
         const isAuth = await this.checkPassword(currentPassword);
 
+        if (!isAuth) {
+            return error(403, 'current password did not match');
+        }
+
+        const salt = crypto.randomBytes(256).toString('utf8');
+
+        const hash = await hashPassword(CURRENT_HASH_TYPE_VER, {
+            password: newPassword,
+            salt: salt
+        });
+
+        return this.update({
+            password: hash,
+            passwordSalt: salt,
+            passwordHashType: CURRENT_HASH_TYPE_VER
+        })
     }
 
     update (properties) {

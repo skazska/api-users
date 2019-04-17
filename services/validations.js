@@ -14,13 +14,13 @@ function schema (data, schema, errorMessage) {
 
 /**
  * returns error with status
- * @param status
- * @param message
+ * @param {string|number} status
+ * @param {string} message
  * @return {Error}
  */
 function error (status, message) {
     const err = new Error(message);
-    err.status = status;
+    err.status = status.toString();
     return err;
 }
 
